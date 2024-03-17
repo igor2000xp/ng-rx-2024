@@ -5,16 +5,34 @@
   ],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": [
+          "tsconfig.*?.json"
+        ],
+        "createDefaultProgram": true
+      },
       "extends": [
+        "plugin:import/recommended",
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "airbnb-typescript/base",
+				"plugin:prettier/recommended"
       ],
       "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "import/prefer-default-export": "off",
+        "no-useless-constructor": "off",
+        "linebreak-style": "off",
+        "@typescript-eslint/no-useless-constructor": "warn",
+        "@angular-eslint/no-empty-lifecycle-method": "warn",
+        "@typescript-eslint/no-empty-function": "warn",
+        "class-methods-use-this": "off",
+        "no-empty-function": "off",
+        "arrow-body-style": "off",
+        "no-console": "off",
         "@angular-eslint/directive-selector": [
           "error",
           {
@@ -30,8 +48,32 @@
             "prefix": "app",
             "style": "kebab-case"
           }
+        ],
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "ts": "never"
+          }
+        ],
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": true
+          }
         ]
       }
+    },
+		{
+      "files": ["*.component.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {
+        "max-len": ["warn", { "code": 140 }]
+      }
+    },
+    {
+      "files": ["*.component.ts"],
+      "extends": ["plugin:@angular-eslint/template/process-inline-templates"]
     },
     {
       "files": [
@@ -39,9 +81,29 @@
       ],
       "extends": [
         "plugin:@angular-eslint/template/recommended",
-        "plugin:@angular-eslint/template/accessibility"
+				"plugin:@angular-eslint/template/accessibility"
       ],
       "rules": {}
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:@ngrx/recommended"
+      ]
+    },
+		{
+      "files": ["src/**/*.spec.ts", "src/**/*.d.ts"],
+      // Jasmine rules
+      "extends": ["plugin:jasmine/recommended"],
+      // Plugin to run Jasmine rules
+      "plugins": ["jasmine"],
+      "env": { "jasmine": true },
+      // Turn off 'no-unused-vars' rule
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
     }
   ]
 }
