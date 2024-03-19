@@ -4,7 +4,7 @@ import { RegisterRequestInterface } from '../types/auth.responce.interface';
 // export const register = createAction('[Auth] Register');
 
 
-export const authActions = createAction(
+export const register = createAction(
   '[Auth] Register',
    props<{request: RegisterRequestInterface}>(),
 );

@@ -13,12 +13,12 @@ import {CommonModule} from '@angular/common'
 import {Component} from '@angular/core'
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms'
 import {RouterLink} from '@angular/router'
-// import {Store} from '@ngrx/store'
+import {Store} from '@ngrx/store'
 import {combineLatest} from 'rxjs'
+import { RegisterRequestInterface } from '../types/auth.responce.interface'
 // import {BacknedErrorMessages} from 'src/app/shared/components/backendErrorMessages/backendErrorMessages.component'
-// import {authActions} from '../../store/actions'
+import { register } from '../store/actions'
 // import {selectIsSubmitting, selectValidationErrors} from '../../store/reducers'
-// import {RegisterRequestInterface} from '../../types/registerRequest.interface'
 
 @Component({
   selector: 'mc-register',
@@ -45,15 +45,15 @@ export class RegisterComponent {
 
   constructor(
     private fb: FormBuilder, 
-    // private store: Store,
+    private store: Store,
     ) {}
 
   onSubmit() {
     console.log('form', this.form.getRawValue())
-    // const request: RegisterRequestInterface = {
-    //   user: this.form.getRawValue(),
-    // }
-    // this.store.dispatch(authActions.register({request}))
+    const request: RegisterRequestInterface = {
+      user: this.form.getRawValue(),
+    }
+    this.store.dispatch(register({request}));
   }
 }
 
