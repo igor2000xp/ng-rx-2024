@@ -33,10 +33,10 @@ import {combineLatest} from 'rxjs'
   ],
 })
 export class RegisterComponent {
-  form = this.fb.nonNullable.group({
+    form = this.fb.nonNullable.group({
     username: ['', Validators.required],
-    email: ['', Validators.required],
-    password: ['', Validators.required],
+    email: ['', Validators.required, Validators.email],
+    password: ["",Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)],
   });
   // data$ = combineLatest({
   //   isSubmitting: this.store.select(selectIsSubmitting),
