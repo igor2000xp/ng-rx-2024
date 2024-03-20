@@ -4,13 +4,14 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { appRoutes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideState, provideStore } from '@ngrx/store';
+import { authFeatureKey, authReducer } from './auth/store/reducers';
 
 export const appConfig: ApplicationConfig = {
     providers: [
     provideHttpClient(),
     provideRouter(appRoutes),
     provideStore(),
-    // provideState(authFeatureKey, authReducer),
+    provideState(authFeatureKey, authReducer),    
     // provideEffects(authEffects),
     provideStoreDevtools({
       maxAge: 25,
