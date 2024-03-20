@@ -15,11 +15,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { RouterLink } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { combineLatest } from 'rxjs'
-import { RegisterRequestInterface } from '../types/auth.responce.interface'
+import { RegisterRequestInterface } from '../types/registerRequest.interface'
 // import {BacknedErrorMessages} from 'src/app/shared/components/backendErrorMessages/backendErrorMessages.component'
 import { register } from '../store/actions'
 import { selectIsSubmitting } from '../store/reducers'
 import { AuthStateInterface } from '../types/authState.interface'
+import { AuthService } from '../services/auth.service'
 // import {selectIsSubmitting, selectValidationErrors} from '../../store/reducers'
 
 @Component({
@@ -37,8 +38,8 @@ import { AuthStateInterface } from '../types/authState.interface'
 export class RegisterComponent {
   form = this.fb.nonNullable.group({
     username: ['', Validators.required],
-    email: ['', Validators.required, Validators.email],
-    password: ["", Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)],
+    email: ['', Validators.required],
+    password: ["", Validators.required],
   });
 
   isSubmitting$ = this.store.select(selectIsSubmitting);
@@ -50,6 +51,7 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private store: Store<{ auth: AuthStateInterface }>,
+    private authService: AuthService,
   ) { }
 
   onSubmit() {
@@ -58,6 +60,7 @@ export class RegisterComponent {
       user: this.form.getRawValue(),
     }
     this.store.dispatch(register({ request }));
+    this.authService.register(request).subscribe((res) => console.log('res ', res));
   }
 }
 

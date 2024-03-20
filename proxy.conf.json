@@ -1,0 +1,8 @@
+{
+  "/api/*": {
+    "target": "https://demo.realworld.io/#/",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": { "^/api" : "" }
+  }
+}

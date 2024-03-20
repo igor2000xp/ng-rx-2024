@@ -1,7 +1,5 @@
-export interface RegisterRequestInterface {
-  user: {
-    username: string;
-    email: string;
-    password: string;
-  }
+import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
+
+export interface AuthResponseInterface {
+  user: CurrentUserInterface;
 }

@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
-import { RegisterRequestInterface } from '../types/auth.responce.interface';
+import { RegisterRequestInterface } from '../types/registerRequest.interface';
 
 // export const register = createAction('[Auth] Register');
 
 
 export const register = createAction(
   '[Auth] Register',
-   props<{request: RegisterRequestInterface}>(),
+  props<{ request: RegisterRequestInterface }>(),
 );
