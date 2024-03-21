@@ -9,18 +9,18 @@
 
 // }
 
-import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
-import { RouterLink } from '@angular/router'
-import { Store } from '@ngrx/store'
-import { combineLatest } from 'rxjs'
-import { RegisterRequestInterface } from '../types/registerRequest.interface'
-// import {BacknedErrorMessages} from 'src/app/shared/components/backendErrorMessages/backendErrorMessages.component'
-import { register } from '../store/actions'
-import { selectIsSubmitting } from '../store/reducers'
-import { AuthStateInterface } from '../types/authState.interface'
-import { AuthService } from '../services/auth.service'
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { combineLatest } from 'rxjs';
+import { RegisterRequestInterface } from '../types/registerRequest.interface';
+// import {BacknedErrorMessages} from 'src/app/shared/components/backendErrorMessages/backendErrorMessages.component';
+import { authActions } from '../store/actions';
+import { selectIsSubmitting } from '../store/reducers';
+import { AuthStateInterface } from '../types/authState.interface';
+import { AuthService } from '../services/auth.service';
 // import {selectIsSubmitting, selectValidationErrors} from '../../store/reducers'
 
 @Component({
@@ -59,7 +59,7 @@ export class RegisterComponent {
     const request: RegisterRequestInterface = {
       user: this.form.getRawValue(),
     }
-    this.store.dispatch(register({ request }));
+    this.store.dispatch(authActions.register({ request }));
     this.authService.register(request).subscribe((res) => console.log('res ', res));
   }
 }
