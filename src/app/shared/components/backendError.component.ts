@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 
-export class BacknedErrorMessages implements OnInit {
+export class BackendErrorMessages implements OnInit {
   @Input() backendErrors: BackendErrorsInterface = {};
   errorMessages: string[] = [];
 

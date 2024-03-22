@@ -16,7 +16,7 @@ import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { RegisterRequestInterface } from '../types/registerRequest.interface';
-import { BacknedErrorMessages } from '../../shared/components/backendError.component';
+import { BackendErrorMessages } from '../../shared/components/backendError.component';
 import { authActions } from '../store/actions';
 import { selectIsSubmitting, selectValidationErrors } from '../store/reducers';
 import { AuthStateInterface } from '../types/authState.interface';
@@ -32,7 +32,7 @@ import { AuthService } from '../services/auth.service';
     ReactiveFormsModule,
     RouterLink,
     CommonModule,
-    BacknedErrorMessages,
+    BackendErrorMessages,
   ],
 })
 export class RegisterComponent {
