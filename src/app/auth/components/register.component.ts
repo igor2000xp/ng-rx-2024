@@ -16,10 +16,10 @@ import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { RegisterRequestInterface } from '../types/registerRequest.interface';
-import { BackendErrorMessages } from '../../shared/components/backendError.component';
+import { BackendErrorComponent } from '../../shared/components/backendError.component';
 import { authActions } from '../store/actions';
 import { selectIsSubmitting, selectValidationErrors } from '../store/reducers';
-import { AuthStateInterface } from '../types/authState.interface';
+// import { AuthStateInterface } from '../types/authState.interface';
 import { AuthService } from '../services/auth.service';
 // import {selectIsSubmitting, selectValidationErrors} from '../../store/reducers'
 
@@ -28,18 +28,13 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    RouterLink,
-    CommonModule,
-    BackendErrorMessages,
-  ],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule, BackendErrorComponent],
 })
 export class RegisterComponent {
   form = this.fb.nonNullable.group({
     username: ['', Validators.required],
     email: ['', Validators.required],
-    password: ["", Validators.required],
+    password: ['', Validators.required],
   });
 
   isSubmitting$ = this.store.select(selectIsSubmitting);
@@ -47,21 +42,21 @@ export class RegisterComponent {
   data$ = combineLatest({
     isSubmitting: this.store.select(selectIsSubmitting),
     backendErrors: this.store.select(selectValidationErrors),
-  })
+  });
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<{ auth: AuthStateInterface }>,
-    private authService: AuthService,
-  ) { }
+    private store: Store,
+    private authService: AuthService
+  ) {}
 
   onSubmit() {
-    console.log('form', this.form.getRawValue())
+    // console.log('form', this.form.getRawValue());
     const request: RegisterRequestInterface = {
       user: this.form.getRawValue(),
-    }
+    };
     this.store.dispatch(authActions.register({ request }));
-    this.authService.register(request).subscribe((res) => console.log('res ', res));
+    // this.authService.register(request).subscribe(res => console.log('res ', res));
+    this.authService.register(request).subscribe(res => res);
   }
 }
-

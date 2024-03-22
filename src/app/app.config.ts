@@ -1,11 +1,11 @@
 import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { appRoutes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideState, provideStore } from '@ngrx/store';
-import { authFeatureKey, authReducer } from './auth/store/reducers';
 import { provideEffects } from '@ngrx/effects';
+import { authFeatureKey, authReducer } from './auth/store/reducers';
+import { appRoutes } from './app.routes';
 import * as authEffects from './auth/store/effects';
 
 export const appConfig: ApplicationConfig = {
@@ -22,6 +22,6 @@ export const appConfig: ApplicationConfig = {
       trace: false,
       traceLimit: 75,
     }),
-    provideEffects()
+    provideEffects(),
   ],
 };

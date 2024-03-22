@@ -1,16 +1,13 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { AuthService } from '../services/auth.service';
-import { authActions } from './actions';
 import { inject } from '@angular/core';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
+import { authActions } from './actions';
+import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
 
 export const registerEffect = createEffect(
-  (
-    actions$ = inject(Actions),
-    authService$ = inject(AuthService)
-  ) => {
+  (actions$ = inject(Actions), authService$ = inject(AuthService)) => {
     return actions$.pipe(
       ofType(authActions.register),
       switchMap(({ request }) => {
@@ -25,8 +22,9 @@ export const registerEffect = createEffect(
               })
             );
           })
-        )
+        );
       })
-    )
+    );
   },
-  { functional: true })
+  { functional: true }
+);
