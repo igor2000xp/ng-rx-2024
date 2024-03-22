@@ -16,9 +16,9 @@ import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { RegisterRequestInterface } from '../types/registerRequest.interface';
-// import {BacknedErrorMessages} from 'src/app/shared/components/backendErrorMessages/backendErrorMessages.component';
+import { BacknedErrorMessages } from '../../shared/components/backendError.component';
 import { authActions } from '../store/actions';
-import { selectIsSubmitting } from '../store/reducers';
+import { selectIsSubmitting, selectValidationErrors } from '../store/reducers';
 import { AuthStateInterface } from '../types/authState.interface';
 import { AuthService } from '../services/auth.service';
 // import {selectIsSubmitting, selectValidationErrors} from '../../store/reducers'
@@ -32,7 +32,7 @@ import { AuthService } from '../services/auth.service';
     ReactiveFormsModule,
     RouterLink,
     CommonModule,
-    // BacknedErrorMessages,
+    BacknedErrorMessages,
   ],
 })
 export class RegisterComponent {
@@ -43,10 +43,11 @@ export class RegisterComponent {
   });
 
   isSubmitting$ = this.store.select(selectIsSubmitting);
-  // data$ = combineLatest({
-  //   isSubmitting: this.store.select(selectIsSubmitting),
-  //   backendErrors: this.store.select(selectValidationErrors),
-  // })
+  backendErrors$ = this.store.select(selectValidationErrors);
+  data$ = combineLatest({
+    isSubmitting: this.store.select(selectIsSubmitting),
+    backendErrors: this.store.select(selectValidationErrors),
+  })
 
   constructor(
     private fb: FormBuilder,
